@@ -55,16 +55,16 @@ class TaskModelTestCase(TestCase):
         task.save()
 
         self.assertFalse(task.is_overdue(current))
-    
 
-class TodoViewTestCase (TestCase):
+
+class TodoViewTestCase(TestCase):
     def test_index_get(self):
         client = Client()
         response = client.get('/')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'todo/index.html')
         self.assertEqual(len(response.context['tasks']), 0)
-        
+    
     def test_index_post(self):
         client = Client()
         data = {'title': 'Test Task', 'due_at': '2024-06-30 23:59:59'}
@@ -98,4 +98,3 @@ class TodoViewTestCase (TestCase):
         self.assertEqual(response.templates[0].name, 'todo/index.html')
         self.assertEqual(response.context['tasks'][0], task1)
         self.assertEqual(response.context['tasks'][1], task2)
-        
